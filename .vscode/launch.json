@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": "--directory /home/ozolotarev/1c/git/malko-edt/v8.3.23_exp/"
+            "args": "--directory /home/ozolotarev/1c/git/malko-edt/malko-germes-ka2-main/"
         }
     ]
 }

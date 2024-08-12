@@ -1,5 +1,6 @@
 import os
 import argparse
+import shutil
 from edt_project import ProjectContext
 
 
@@ -16,12 +17,18 @@ def checkProject(projectDir:
 
 def checkStrayObjects(objectClass: str, projectMetadata: ProjectContext):
 
-    classDirItems = os.listdir(projectMetadata.getClassDirectory(objectClass))
+    classDir = projectMetadata.getClassDirectory(objectClass)
+    classDirItems = os.listdir(classDir)
 
     for item in classDirItems:
         
         if not projectMetadata.contains(objectClass, item):
             print("Объект не описан в Configuration.mdo: {0} -> {1}".format(objectClass, item))
+
+            if item.startswith("Удалить") or item.startswith("Драйвер"):
+                print(" Удаляем: {0}.{1}".format(objectClass, item))
+                fullPath = (classDir + '/' + item)
+                shutil.rmtree(fullPath)
 
 
 parser = argparse.ArgumentParser(
