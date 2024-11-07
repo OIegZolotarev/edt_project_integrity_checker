@@ -2,7 +2,9 @@ import os
 import argparse
 import shutil
 from edt_project import ProjectContext
+
 from EventSubscription import EventSubscirpiton
+from ScheduledJob import ScheduledJob
 
 # TODO: проверки дублей идентификаторов метаданных
 
@@ -24,6 +26,13 @@ def checkProject(projectDir:
             sub = EventSubscirpiton(ES, projectMetaData)
             sub.validate()
                 
+    if 'ScheduledJob' in projectMetaData.objects:
+        scheduledJobs = projectMetaData.objects['ScheduledJob']
+
+        for sjName in scheduledJobs:
+            sj = ScheduledJob(sjName, projectMetaData)
+            sj.validate()
+                                
  
     pass
 
@@ -61,7 +70,7 @@ def checkStrayObjects(objectClass: str, projectMetadata: ProjectContext):
 
 parser = argparse.ArgumentParser(
                     prog = 'Проверка логической целостности проекта EDT',
-                    description = 'Анализирует файлы проекта на предмет очевидных ошибок',
+                    description = 'Анализирует файлы проекта на предмет очевидных ошибок. Крайне рекомендуется использовать репозиторий, для контроля изменений',
                     epilog = '')
 
 parser.add_argument('-d', '--directory')      # option that takes a value
