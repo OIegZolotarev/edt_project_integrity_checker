@@ -2,6 +2,9 @@ import os
 import argparse
 import shutil
 from edt_project import ProjectContext
+from EventSubscription import EventSubscirpiton
+
+# TODO: проверки дублей идентификаторов метаданных
 
 
 def checkProject(projectDir:
@@ -11,7 +14,32 @@ def checkProject(projectDir:
         
     for objectClass in projectMetaData.objects:
         checkStrayObjects(objectClass, projectMetaData)
+        checkMissingMDOFiles(objectClass, projectMetaData)
 
+
+    if 'EventSubscription' in projectMetaData.objects:
+        eventSubscriptions = projectMetaData.objects['EventSubscription']
+
+        for ES in eventSubscriptions:
+            sub = EventSubscirpiton(ES, projectMetaData)
+            sub.validate()
+                
+ 
+    pass
+
+def checkMissingMDOFiles(objectClass: str, projectMetadata: ProjectContext):
+
+    classDir = projectMetadata.getClassDirectory(objectClass)
+    classDirItems = os.listdir(classDir)
+
+    for item in classDirItems:
+        fullPath = (classDir + '/' + item)
+        mdoPath = fullPath + "/" + item + ".mdo"
+
+        if os.path.isfile(mdoPath) == False:
+            print("Объект {0}.{1} без файла .mdo".format(objectClass, item))
+
+        pass
 
     pass
 
@@ -25,10 +53,10 @@ def checkStrayObjects(objectClass: str, projectMetadata: ProjectContext):
         if not projectMetadata.contains(objectClass, item):
             print("Объект не описан в Configuration.mdo: {0} -> {1}".format(objectClass, item))
 
-            if item.startswith("Удалить") or item.startswith("Драйвер"):
-                print(" Удаляем: {0}.{1}".format(objectClass, item))
-                fullPath = (classDir + '/' + item)
-                shutil.rmtree(fullPath)
+            #if item.startswith("Удалить") or item.startswith("Драйвер"):
+            #    print(" Удаляем: {0}.{1}".format(objectClass, item))
+            #    fullPath = (classDir + '/' + item)
+            #    shutil.rmtree(fullPath)
 
 
 parser = argparse.ArgumentParser(

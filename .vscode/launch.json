@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": "--directory /home/ozolotarev/1c/git/malko-edt/malko-germes-ka2-main/"
+            "args": "--directory /run/media/ozolotarev/data-tier-0/1c/data/СКСУ/git/СКСУ_Обезличенная_база---/"
         }
     ]
 }

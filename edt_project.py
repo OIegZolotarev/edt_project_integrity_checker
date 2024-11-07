@@ -49,6 +49,8 @@ class ProjectContext:
             "chartsOfCalculationTypes",
             "calculationRegisters",
             "businessProcesses",
+            "sequences",
+            "definedtypes",
             "tasks"]
         
         return tag in acceptableTags
@@ -125,6 +127,7 @@ class ProjectContext:
                         "StyleItem" : "StyleItems",
                         "Subsystem" : "Subsystems",
                         "Task" : "Tasks",
+                        "Sequence" : "Sequences",
                         "WebService" : "WebServices",
                         "WSReference" : "WSReferences",
                         "XDTOPackage" : "XDTOPackages",
@@ -137,3 +140,20 @@ class ProjectContext:
     def contains(self, objectclass: str, item: str) -> bool:
 
         return item in self.objects[objectclass]
+
+    def convertDerivedClassToBasic(objectClass: str) -> str:
+
+      keywords = ['Object', 'ValueManager', 'Manager', 'RecordSet' ]
+
+      # Особый случай
+      if objectClass == 'DefinedType':
+          return objectClass
+
+      for keyword in keywords:
+
+        pos = objectClass.find(keyword)
+
+        if pos != -1:
+            return objectClass[:pos]
+        
+      raise Exception('Unimplemented')
