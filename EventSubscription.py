@@ -40,12 +40,13 @@ class EventSubscirpiton:
                     print("Неизвестный элемент в источниках подписки на событие: " + item.text)
                     badNodes.append(item)
 
-            for node in badNodes:
+            if self.project.hardRun():
+                for node in badNodes:
+                    source.remove(node)                    
 
-                source.remove(node)                    
 
-
-        mdoData.write(self.mdoFile)
+        if self.project.hardRun():
+            mdoData.write(self.mdoFile)
 
         pass
 

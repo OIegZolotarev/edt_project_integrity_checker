@@ -57,8 +57,9 @@ class ProjectContext:
             
 
 
-    def __init__(self, directory: str) -> None:
+    def __init__(self, directory: str, hardrun: bool) -> None:
         self.directory = directory
+        self._hardrun = hardrun
         
         configurationDescriptorPath = self.directory + "/src/Configuration/Configuration.mdo"
 
@@ -85,7 +86,11 @@ class ProjectContext:
                 
                 self.objects[itemSuperClass].append(objectName)
                 bar()
-
+    
+    
+    def hardRun(self):
+        return self._hardrun
+    
     def getClassDirectory(self, objectClass:str) -> str:
         
         pluralForms = {
