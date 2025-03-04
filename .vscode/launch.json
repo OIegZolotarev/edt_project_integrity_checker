@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": "--directory /run/media/ozolotarev/data-tier-0/1c/data/СКСУ/git/СКСУ_Обезличенная_база---/"
-        }
+            "args": "--hardrun  --directory /home/ozolotarev/1c/data/СКСУ/git/Расширение_СборнаяСолянка/СКСУ_Обезличенная_база.ЦАУ_Расширение/"
+        
     ]
 }
